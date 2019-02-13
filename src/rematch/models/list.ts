@@ -4,7 +4,7 @@ export const list = {
   effects: {
     async getList() {
       const res = await getList();
-      const data = res.data.data.map((item:any)=>{
+      const data = res.data.map((item:any)=>{
         return {
           ...item,
           uuid:uuid()

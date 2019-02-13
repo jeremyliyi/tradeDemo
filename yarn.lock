@@ -33,6 +33,10 @@
   dependencies:
     redux "4.0.0"
 
+"@rematch/loading@^1.1.2":
+  version "1.1.2"
+  resolved "http://registry.npm.taobao.org/@rematch/loading/download/@rematch/loading-1.1.2.tgz#7c43d2c1f65b636d43c0d510bd170fb70f35fc15"
+
 "@types/history@*":
   version "4.7.2"
   resolved "http://registry.npm.taobao.org/@types/history/download/@types/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
@@ -48,6 +52,10 @@
 "@types/node@^10.12.18":
   version "10.12.18"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
+
+"@types/nprogress@^0.0.29":
+  version "0.0.29"
+  resolved "http://registry.npm.taobao.org/@types/nprogress/download/@types/nprogress-0.0.29.tgz#060bd510022a005f1840234030d3132fb9195471"
 
 "@types/prop-types@*":
   version "15.5.8"
@@ -5167,6 +5175,10 @@ npmlog@^4.0.2:
     console-control-strings "~1.1.0"
     gauge "~2.7.3"
     set-blocking "~2.0.0"
+
+nprogress@^0.2.0:
+  version "0.2.0"
+  resolved "http://registry.npm.taobao.org/nprogress/download/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
 
 nth-check@~1.0.1:
   version "1.0.2"

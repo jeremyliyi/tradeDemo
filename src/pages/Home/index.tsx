@@ -9,7 +9,8 @@ interface IUser {
   name: string;
 }
 const Home = React.memo(() => {
-  const { list, dispatch } = useStore("list");
+  const { list, dispatch, loading } = useStore("list");
+  const listLoading = loading.effects.list.getList;
   useEffect(() => {
     dispatch.list.getList();
   }, []);
@@ -19,46 +20,44 @@ const Home = React.memo(() => {
       title: "市场",
       dataIndex: "marketName",
       key: "marketName",
-      width:200
+      width: 200
     },
     {
       title: "币种",
       dataIndex: "quoteAssetName",
       key: "quoteAssetName",
-      width:200,
-      render:(value,item)=>{
-        return(
-          <Link to={`/detail?quoteAssetName=${value}`} style={{color:'red'}}>{value}</Link>
-        )
+      width: 200,
+      render: (value, item) => {
+        return (
+          <Link to={`/detail?quoteAssetName=${value}`} style={{ color: "red" }}>
+            {value}
+          </Link>
+        );
       }
     },
     {
       title: "最新价",
       dataIndex: "close",
       key: "close",
-      width:200,
-
+      width: 200
     },
     {
       title: "24h涨跌",
       dataIndex: "prevClose",
       key: "prevClose",
-      width:200,
-
+      width: 200
     },
     {
       title: "24h最高价",
       dataIndex: "high",
       key: "high",
-      width:200,
-
+      width: 200
     },
     {
       title: "24h最低价",
       dataIndex: "low",
       key: "low",
-      width:200,
-
+      width: 200
     },
     {
       title: "24h成交量",
@@ -67,14 +66,15 @@ const Home = React.memo(() => {
     }
   ];
   return (
-      <Table
-        columns={columns}
-        dataSource={list}
-        rowKey="uuid"
-        size="small"
-        pagination={false}
-        scroll={{ y: 700 }}
-      />
+    <Table
+      loading={listLoading}
+      columns={columns}
+      dataSource={list}
+      rowKey="uuid"
+      size="small"
+      pagination={false}
+      scroll={{ y: 700 }}
+    />
   );
 });
 

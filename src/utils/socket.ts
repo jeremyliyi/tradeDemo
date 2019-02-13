@@ -1,38 +1,33 @@
 // import getUUID from "@/utils/uuid";
 
-const protocol = location.protocol;
+// const protocol = location.protocol;
 let supportSocket = true;
-
+export type ISocketInstance = null | WebSocket;
 if (!(window as any).WebSocket) {
   supportSocket = false;
 }
 export interface Iinit {
   url: string;
-  onOpen(): void;
-  onClose(): void;
-  onError(): void;
-  onDead(): void;
-  onMessage(): void;
-  onNotSupportSocket(): void;
+  onOpen(data:any): void;
+  onClose(data:any): void;
+  onError(data:any): void;
+  onDead(data:any): void;
+  onMessage(data:any): void;
+  onNotSupportSocket(data:any): void;
 }
 
 export default {
   // 实例
-  instance: null,
+  instance: null as ISocketInstance,
 
   param: {
     url: null,
   },
-
   reconnectTime: 0,
-
-  maxReconnectTime: 10,
-
+  maxReconnectTime: 100,
   dead: false,
-
   // 是否支持websocket
   supportSocket,
-
   setParam(object: any) {
     for (const key in object) {
       if (object.hasOwnProperty(key)) {
@@ -44,15 +39,10 @@ export default {
   },
 
   onOpen: null,
-
   onClose: null,
-
   onError: null,
-
   onMessage: null,
-
   onNotSupportSocket: null,
-
   /**
    * 初始化websocket
    * @param {初始化参数} param0
@@ -116,28 +106,19 @@ export default {
         }
       }
 
-      let wsDomain;
-      let socket;
-      const { url, appId, clientType } = this.param;
-      const wid = "getUUID()";
-
-      if (protocol === "http:") {
-        wsDomain = "ws://" + url;
-      } else if (protocol === "https:") {
-        wsDomain = "wss://" + url;
-      }
-
+      let socket:ISocketInstance;
+      const { url } = this.param;
       socket = new WebSocket(
-        `${wsDomain}?appId=${appId}&clientType=${clientType}&_wid_=${wid}`
+        `${url}`
       );
       this.instance = socket;
       socket.onopen = e => {
-        console.log("open", e);
-        this.onOpen && this.onOpen();
+        console.log("open", e, socket);
+        this.onOpen && this.onOpen(e);
       };
       socket.onclose = () => {
         console.log("close");
-        socket = false;
+        socket = null;
         this.onClose && this.onClose();
       };
       socket.onmessage = res => {
@@ -149,11 +130,12 @@ export default {
       };
       socket.onerror = error => {
         console.log("error", error);
-        this.instance = false;
+        this.instance = null;
         this.onError && this.onError();
       };
       return socket;
     } catch (error) {
+      debugger
       console.log(error);
       return ;
     }

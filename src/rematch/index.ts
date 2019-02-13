@@ -1,7 +1,10 @@
 import { init } from "@rematch/core";
+import createLoadingPlugin from '@rematch/loading'
 import * as React from "react";
 import * as models from "./models";
 const {useContext} = React;
+const options = {}
+const loading = createLoadingPlugin(options)
 type INameSpace = null | string | string[] ;
 
 interface Ires{
@@ -13,7 +16,8 @@ interface Ires{
 export const CONTEXT = React.createContext({});
 
 export const store = init({
-  models
+  models,
+  plugins: [loading]
 });
 
 
@@ -21,7 +25,8 @@ export const store = init({
 export function   useStore(nameSpace:INameSpace){
   const { getState, dispatch } = useContext(CONTEXT) as any;
   const res:Ires = {
-    dispatch
+    dispatch,
+    loading:getState().loading
   };
   function addStore(key:string){
     res[key] = getState()[key] 

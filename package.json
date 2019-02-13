@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@rematch/core": "^1.0.6",
+    "@rematch/loading": "^1.1.2",
     "antd": "3.12.2",
     "axios": "^0.18.0",
+    "nprogress": "^0.2.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-router-dom": "^4.3.1",
@@ -20,6 +22,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.13",
     "@types/node": "^10.12.18",
+    "@types/nprogress": "^0.0.29",
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
     "@types/react-router-dom": "^4.3.1",
@@ -30,6 +33,12 @@
       "target": "https://www.binance.co/",
       "secure": false,
       "changeOrigin": true
+    },
+    "/ws/bnbbtc@depth20": {
+      "target": "wss://stream.binance.cloud:9443",
+      "ws": true,
+      "secure": false,
+      "logLevel": "debug"
     }
   }
 }
