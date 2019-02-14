@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import Socket from "../../utils/socket";
 interface IState {
   url: string;
@@ -14,9 +15,9 @@ export const socket = {
         onOpen: () => {
           this.changeStatus("1");
         },
-        onMessage: datas => {
+        onMessage:_.throttle((datas)=>{
           this.changeDataList(datas);
-        },
+        },300),
         onClose: () => {
           this.changeStatus("3");
         },
